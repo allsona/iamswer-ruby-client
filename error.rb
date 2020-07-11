@@ -1,4 +1,4 @@
-class Zenta::Error < StandardError
+class Iamswer::Error < StandardError
   DslError          = Class.new self
   InternalError     = Class.new self
   InvalidRecord     = Class.new self
@@ -11,7 +11,7 @@ class Zenta::Error < StandardError
 
   def self.from_code(code)
     class_name = code.downcase.classify
-    "Zenta::Error::#{class_name}".constantize
+    "Iamswer::Error::#{class_name}".constantize
   rescue
     OtherError
   end
@@ -20,11 +20,11 @@ class Zenta::Error < StandardError
     code = error["code"]
     message = error["message"]
 
-    Zenta::Error.from_code(code).new(message)
+    Iamswer::Error.from_code(code).new(message)
   end
 
   # TODO: code to subscribe for event that register error
-  # contexts. We would like to decouple Zenta from error
+  # contexts. We would like to decouple Iamswer from error
   # reporting system such as Sentry, for example.
   def self.add_context attributes
   end

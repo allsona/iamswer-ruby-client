@@ -1,10 +1,10 @@
-module Zenta::User::Belonging
+module Iamswer::User::Belonging
   extend ActiveSupport::Concern
 
   class_methods do
     def owned_by user_class, field_name: :user
-      unless user_class.ancestors.include? Zenta::User::Prototype
-        raise Zenta::Error::DslError, "#{user_class} does not implements Zenta::User::Prototype"
+      unless user_class.ancestors.include? Iamswer::User::Prototype
+        raise Iamswer::Error::DslError, "#{user_class} does not implements Iamswer::User::Prototype"
       end
 
       field_writer = "#{field_name}="

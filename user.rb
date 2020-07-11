@@ -1,11 +1,11 @@
-class Zenta::User
+class Iamswer::User
   require_relative "user/initializer"
   require_relative "user/finder"
 
   include ActiveModel::Model
-  include Zenta::Concern::DatedRecord
-  include Zenta::User::Initializer
-  include Zenta::User::Finder
+  include Iamswer::Concern::DatedRecord
+  include Iamswer::User::Initializer
+  include Iamswer::User::Finder
 
   attr_accessor :id,
     :email,

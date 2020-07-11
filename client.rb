@@ -1,4 +1,4 @@
-class Zenta::Client
+class Iamswer::Client
   include Singleton
 
   class << self
@@ -35,11 +35,11 @@ class Zenta::Client
   private
 
     def endpoint
-      ENV.fetch("ZENTA_ENDPOINT")
+      ENV.fetch("IAMSWER_ENDPOINT")
     end
 
     def secret_key
-      ENV.fetch("ZENTA_SECRET_KEY")
+      ENV.fetch("IAMSWER_SECRET_KEY")
     end
 
     def client
@@ -51,7 +51,7 @@ class Zenta::Client
           },
           headers: {
             "Content-Type" => "application/json",
-            "User-Agent" => "Zenta Client 1.0",
+            "User-Agent" => "Iamswer Client 1.0",
           }
         )
       end

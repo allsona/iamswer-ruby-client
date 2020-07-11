@@ -1,11 +1,11 @@
-module Zenta::User::Updater
+module Iamswer::User::Updater
   extend ActiveSupport::Concern
 
   included do
     # fields attributes understood by API requests
     # especially for updating data
     def fields
-      fields = self.class.zenta_defined_fields
+      fields = self.class.iamswer_defined_fields
 
       if fields.blank?
         fields = [
@@ -23,9 +23,9 @@ module Zenta::User::Updater
         .map { |field| [field, send(field)] }
         .to_h
 
-      if self.class.zenta_defined_extra_fields.any?
+      if self.class.iamswer_defined_extra_fields.any?
         fields[:extra_fields] = {}
-        self.class.zenta_defined_extra_fields.each do |field|
+        self.class.iamswer_defined_extra_fields.each do |field|
           fields[:extra_fields][field] = send(field)
         end
       end
@@ -34,8 +34,8 @@ module Zenta::User::Updater
     end
 
     def update!
-      body = Zenta::Client.post "/api/v1/users/update", fields
-      self.zenta_user = Zenta::User.new_from_json body
+      body = Iamswer::Client.post "/api/v1/users/update", fields
+      self.iamswer_user = Iamswer::User.new_from_json body
     end
 
     def save!

@@ -1,4 +1,4 @@
-module Zenta::Concern::DatedRecord
+module Iamswer::Concern::DatedRecord
   extend ActiveSupport::Concern
 
   included do

@@ -1,3 +1,3 @@
-# Zenta Ruby Client
+# Iamswer Ruby Client
 
-The client for Zenta -- A user microservice
+The client for Iamswer -- A user microservice

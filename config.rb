@@ -1,4 +1,4 @@
-class Zenta::Config
+class Iamswer::Config
   include Singleton
 
   class << self

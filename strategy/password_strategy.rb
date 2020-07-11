@@ -1,4 +1,4 @@
-class Zenta::Strategy::PasswordStrategy < Warden::Strategies::Base
+class Iamswer::Strategy::PasswordStrategy < Warden::Strategies::Base
   def valid?
     return false if request.get?
 

@@ -1,13 +1,13 @@
-module Zenta::User::Initializer
+module Iamswer::User::Initializer
   extend ActiveSupport::Concern
 
   class_methods do
     def new_from_json body
-      Zenta::Error.add_context body: body
+      Iamswer::Error.add_context body: body
 
       error = body["error"]
-      raise Zenta::Error.from error if error
-      raise Zenta::Error::TypeError, "Invalid type" if body["type"] != "user"
+      raise Iamswer::Error.from error if error
+      raise Iamswer::Error::TypeError, "Invalid type" if body["type"] != "user"
 
       user = new body.slice :id,
         :email,

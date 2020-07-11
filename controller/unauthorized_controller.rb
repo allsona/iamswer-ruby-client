@@ -1,4 +1,4 @@
-class Zenta::Controller::UnauthorizedController < ActionController::Metal
+class Iamswer::Controller::UnauthorizedController < ActionController::Metal
   include ActionController::UrlFor
   include ActionController::Redirecting
   include Rails.application.routes.mounted_helpers
@@ -15,6 +15,6 @@ class Zenta::Controller::UnauthorizedController < ActionController::Metal
     message = env["warden.options"].fetch(:message, "unauthorized.user")
     flash.alert = I18n.t(message)
 
-    redirect_to Zenta::Config.new_session_url
+    redirect_to Iamswer::Config.new_session_url
   end
 end
