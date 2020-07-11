@@ -1,11 +1,21 @@
 class Iamswer::Config
   include Singleton
 
+  attr_accessor :endpoint,
+    :secret_key,
+    :session_key_base
+
   class << self
-    delegate :new_session_url, to: :instance
+    delegate :endpoint,
+      :endpoint=,
+      :secret_key,
+      :secret_key=,
+      :session_key_base,
+      :session_key_base=,
+      to: :instance
   end
 
-  def new_session_url
-    "/signin"
+  def self.configure
+    yield self
   end
 end

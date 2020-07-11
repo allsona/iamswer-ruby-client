@@ -1,5 +1,6 @@
 class Iamswer::Session
   include ActiveModel::Model
+  include Iamswer::Session::Finder
 
   attr_accessor :id,
     :is_invalidated,

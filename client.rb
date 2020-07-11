@@ -35,11 +35,11 @@ class Iamswer::Client
   private
 
     def endpoint
-      ENV.fetch("IAMSWER_ENDPOINT")
+      Iamswer::Config.endpoint
     end
 
     def secret_key
-      ENV.fetch("IAMSWER_SECRET_KEY")
+      Iamswer::Config.secret_key
     end
 
     def client

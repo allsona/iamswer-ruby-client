@@ -1,7 +1,4 @@
 class Iamswer::User
-  require_relative "user/initializer"
-  require_relative "user/finder"
-
   include ActiveModel::Model
   include Iamswer::Concern::DatedRecord
   include Iamswer::User::Initializer
