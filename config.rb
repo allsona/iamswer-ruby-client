@@ -3,7 +3,8 @@ class Iamswer::Config
 
   attr_accessor :endpoint,
     :secret_key,
-    :session_key_base
+    :session_key_base,
+    :subdomain
 
   class << self
     delegate :endpoint,
@@ -12,6 +13,8 @@ class Iamswer::Config
       :secret_key=,
       :session_key_base,
       :session_key_base=,
+      :subdomain,
+      :subdomain=
       to: :instance
   end
 

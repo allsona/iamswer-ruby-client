@@ -5,7 +5,7 @@ module Iamswer::SessionHandler
 
   # the name of the app's cookie that will store the user's session ID
   def session_cookie_name
-    "#{current_app.subdomain}_iamswer_session"
+    "#{Iamswer::Config.subdomain}_iamswer_session"
   end
 
   def remove_session_cookies
