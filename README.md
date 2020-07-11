@@ -20,3 +20,18 @@ The client for Iamswer -- A user microservice
    loader.reload
    loader.eager_load
    ```
+
+3. Write the config:
+
+   ```rb
+   Iamswer::Config.configure do |c|
+   c.endpoint = "https://id.sonasign.com"
+
+   c.subdomain = "sonasign"
+   c.secret_key = ENV["IAMSWER_SECRET_KEY"]
+   c.session_key_base = ENV["IAMSWER_SESSION_KEY_BASE"]
+   end
+   ```
+
+4. Install dependencies:
+   - Faraday
