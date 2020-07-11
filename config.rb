@@ -14,7 +14,7 @@ class Iamswer::Config
       :session_key_base,
       :session_key_base=,
       :subdomain,
-      :subdomain=
+      :subdomain=,
       to: :instance
   end
 
