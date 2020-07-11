@@ -16,10 +16,7 @@ module Iamswer::SessionHandler
     session_id = cookies.permanent[session_cookie_name]
     session_id = session_verifier.verify session_id
     Iamswer::Session.find_by_id! session_id
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
-    nil
-  rescue => e
-    ErrorReporter.call e
+  rescue
     nil
   end
 
