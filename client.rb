@@ -35,7 +35,7 @@ class Iamswer::Client
   private
 
     def endpoint
-      Iamswer::Config.endpoint
+      Iamswer::Config.api_endpoint
     end
 
     def secret_key

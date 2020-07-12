@@ -2,6 +2,7 @@ class Iamswer::Config
   include Singleton
 
   attr_accessor :endpoint,
+    :api_endpoint,
     :secret_key,
     :session_key_base,
     :subdomain
@@ -9,6 +10,8 @@ class Iamswer::Config
   class << self
     delegate :endpoint,
       :endpoint=,
+      :api_endpoint,
+      :api_endpoint=,
       :secret_key,
       :secret_key=,
       :session_key_base,
@@ -20,5 +23,9 @@ class Iamswer::Config
 
   def self.configure
     yield self
+  end
+
+  def api_endpoint
+    @api_endpoint.present? ? @api_endpoint : endpoint
   end
 end
