@@ -11,4 +11,8 @@ module Iamswer::UrlHelpers
   def sign_out_url
     root_endpoint + "/sessions/sign_out"
   end
+
+  def account_settings_url
+    root_endpoint + "/account/user_information"
+  end
 end
