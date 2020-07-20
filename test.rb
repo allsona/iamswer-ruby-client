@@ -2,4 +2,8 @@
 # that are integrated with Iamswer
 module Iamswer::Test
   include Iamswer::Test::Mock
+
+  class << self
+    include Iamswer::Test::Mock
+  end
 end

@@ -68,8 +68,9 @@ The client for Iamswer -- A user microservice
 
 
 <details>
-  <summary>How to express ownership of an object?</summary>
+  <summary>How to express ownership of an object to the User class?</summary>
   <p>
+  We can use `owned_by`. Let's assume an `Organization` is owner by a user, we can express that as follows:
 
   ```ruby
   class Organization
@@ -79,7 +80,7 @@ The client for Iamswer -- A user microservice
   end
   ```
 
-  We may also define a field name like this:
+  We may also define the relationship as follows:
 
   ```ruby
   owned_by User, field_name: :owner
@@ -90,3 +91,19 @@ The client for Iamswer -- A user microservice
   Note: ensure you have created the `User` model class!
 </details>
 
+
+<details>
+  <summary>How to express the `has_many` ownership?</summary>
+  <p>
+  We simply use `has_many` on the `User` class as follows:
+
+  ```ruby
+  class User
+    include Iamswer::User::Prototype
+
+    has_many :organizations
+  end
+  ```
+
+  </p>
+</details>
