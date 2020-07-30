@@ -5,6 +5,7 @@ class Iamswer::Error < StandardError
   InvalidRequest    = Class.new self
   MissingRecord     = Class.new self
   NotUniqueRecord   = Class.new self
+  OperationError    = Class.new self
   OtherError        = Class.new self
   Unauthorized      = Class.new self
   TypeError         = Class.new self
