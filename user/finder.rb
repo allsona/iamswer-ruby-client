@@ -1,3 +1,6 @@
+# A finder class methods attached to Iamswer::User, which is
+# an internal implementation, a prototype of the actual model.
+# Hence, methods defined here is by definition internal methods.
 module Iamswer::User::Finder
   extend ActiveSupport::Concern
 

@@ -1,3 +1,6 @@
+# This class should not be inherited directly by any User model.
+# A User model should include the Iamswer::User::Prototype. In turn,
+# the prototype is an interface to an instance of `Iamswer::User`.
 class Iamswer::User
   include ActiveModel::Model
   include Iamswer::Concern::DatedRecord

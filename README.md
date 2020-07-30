@@ -42,3 +42,68 @@ The client for Iamswer -- A user microservice
 
 4. Install dependencies:
    - Faraday
+
+## Simple guide
+
+<details>
+  <summary>How to represent a user with a model?</summary>
+  <p>
+
+  ```ruby
+  class User
+    include Iamswer::User::Prototype
+
+    # list the native fields you would like to use
+    iamswer_fields :id,
+      :email,
+      :name
+
+    # list the additional extra fields
+    iamswer_extra_fields :is_public
+  end
+  ```
+
+  </p>
+</details>
+
+
+<details>
+  <summary>How to express ownership of an object to the User class?</summary>
+  <p>
+  We can use `owned_by`. Let's assume an `Organization` is owner by a user, we can express that as follows:
+
+  ```ruby
+  class Organization
+    include Iamswer::User::Belonging
+
+    owned_by User
+  end
+  ```
+
+  We may also define the relationship as follows:
+
+  ```ruby
+  owned_by User, field_name: :owner
+  ```
+
+  </p>
+
+  Note: ensure you have created the `User` model class!
+</details>
+
+
+<details>
+  <summary>How to express the `has_many` ownership?</summary>
+  <p>
+  We simply use `has_many` on the `User` class as follows:
+
+  ```ruby
+  class User
+    include Iamswer::User::Prototype
+
+    has_many :organizations
+  end
+  ```
+
+  </p>
+</details>
