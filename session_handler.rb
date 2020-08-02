@@ -13,7 +13,13 @@ module Iamswer::SessionHandler
   end
 
   def current_session
-    session_id = cookies.permanent[session_cookie_name]
+    # rails cookies respond to permanent, but others don't (eg: Grape::Cookies)
+    if cookies.respond_to? :permanent
+      session_id = cookies.permanent[session_cookie_name]
+    else
+      session_id = cookies[session_cookie_name]
+    end
+
     session_id = session_verifier.verify session_id
     Iamswer::Session.find_by_id! session_id
   rescue
