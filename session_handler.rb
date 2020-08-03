@@ -22,7 +22,10 @@ module Iamswer::SessionHandler
 
     session_id = session_verifier.verify session_id
     Iamswer::Session.find_by_id! session_id
-  rescue
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    # note that we should never catch blindly, we should never catch all type of errors
+    # otherwise, those errors will be swallowed. let's just swallow errors that we know
+    # it is a result of invalid cookies, not because of, for example, a missing method
     nil
   end
 
