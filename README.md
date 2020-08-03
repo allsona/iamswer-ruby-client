@@ -21,10 +21,23 @@ The client for Iamswer -- A user microservice
    loader.eager_load
    ```
 
-3. Write the config, typically something like:
+3. Creates a user class that includes `Iamswer::User::Prototype`. Actually, this is an optional step, but is considered a good practice, so that you can customize the `User` class anyway you want.
+
+  ```rb
+  class User
+    include Iamswer::User::Prototype
+
+    # you can use iamswer_fields to define fields you want to use
+    # you can use iamswer_extra_fields to define extra fields
+    # by default, created_at, updated_at, and locale is included
+  end
+  ```
+
+4. Write the config, typically something like:
 
    ```rb
    Iamswer::Config.configure do |c|
+     c.user_class = "User" # if you defined the user class
      c.subdomain = "sonasign"
 
      if Rails.env.development?
@@ -40,7 +53,7 @@ The client for Iamswer -- A user microservice
    end
    ```
 
-4. Install dependencies:
+5. Install dependencies:
    - Faraday
 
 ## Simple guide

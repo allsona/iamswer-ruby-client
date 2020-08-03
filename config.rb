@@ -20,6 +20,10 @@ class Iamswer::Config
   # with what's set at Iamswer's own system
   attr_accessor :session_key_base
 
+  # to define the specific user class, this class should `include`
+  # `Iamswer::User::Prototype`.
+  attr_accessor :user_class
+
   class << self
     delegate :endpoint,
       :endpoint=,
@@ -31,6 +35,8 @@ class Iamswer::Config
       :session_key_base=,
       :subdomain,
       :subdomain=,
+      :user_class,
+      :user_class=,
       to: :instance
   end
 
@@ -40,5 +46,15 @@ class Iamswer::Config
 
   def api_endpoint
     @api_endpoint.present? ? @api_endpoint : endpoint
+  end
+
+  def self.constantized_user_class
+    return nil unless user_class
+
+    @constantized_user_class ||= user_class.constantize
+  end
+
+  def self.has_user_class?
+    !!constantized_user_class
   end
 end

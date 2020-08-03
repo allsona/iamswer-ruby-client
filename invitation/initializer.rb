@@ -18,7 +18,7 @@ module Iamswer::Invitation::Initializer
         :seenAt,
         :sentAt
 
-      invitation.inviter = Iamswer::User.new_from_json body[:inviter]
+      invitation.inviter = Iamswer::User.typed_new_from_json body[:inviter]
 
       if body[:register]
         invitation.register = Iamswer::User.new_from_json body[:register]

@@ -25,7 +25,7 @@ class Iamswer::Session
       :loggedOutAt,
       :validUntil
 
-    session.user = Iamswer::User.new_from_json body["user"]
+    session.user = Iamswer::User.typed_new_from_json body["user"]
     session
   end
 
