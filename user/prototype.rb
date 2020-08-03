@@ -18,6 +18,7 @@ module Iamswer::User::Prototype
     attr_accessor :iamswer_user
 
     iamswer_fields :created_at, :updated_at
+    iamswer_fields :locale
 
     def ==(other_user)
       fields == other_user.fields
