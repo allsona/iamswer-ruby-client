@@ -1,11 +1,19 @@
 module Iamswer::SessionHandler
-  def session_verifier
+  def self.session_verifier
     @session_verifier ||= ActiveSupport::MessageVerifier.new Iamswer::Config.session_key_base
+  end
+
+  def session_verifier
+    Iamswer::SessionHandler.session_verifier
+  end
+
+  def self.session_cookie_name
+    @session_cookie_name ||= "#{Iamswer::Config.subdomain}_iamswer_session"
   end
 
   # the name of the app's cookie that will store the user's session ID
   def session_cookie_name
-    "#{Iamswer::Config.subdomain}_iamswer_session"
+    Iamswer::SessionHandler.session_cookie_name
   end
 
   def remove_session_cookies
