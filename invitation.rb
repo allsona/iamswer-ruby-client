@@ -5,6 +5,7 @@ class Iamswer::Invitation
   include Iamswer::Invitation::Finder
   include Iamswer::Invitation::Remover
   include Iamswer::Invitation::Creator
+  include Iamswer::Invitation::Resender
 
   attr_accessor :id,
     :status,
