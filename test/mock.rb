@@ -17,9 +17,11 @@ module Iamswer::Test::Mock
     }.with_indifferent_access.merge(given_values.deep_symbolize_keys)
   end
 
-  def session_json_response given_values = {}
-    given_values.deep_symbolize_keys!
+  def mock_user given_values = {}
+    Iamswer::User.typed_new_from_json user_json_response(given_values)
+  end
 
+  def session_json_response given_values = {}
     {
       type: "session",
       id: SecureRandom.alphanumeric,
@@ -30,11 +32,26 @@ module Iamswer::Test::Mock
     }.with_indifferent_access.merge(given_values.deep_symbolize_keys)
   end
 
-  def mock_user given_values = {}
-    Iamswer::User.typed_new_from_json user_json_response(given_values)
-  end
-
   def mock_session given_values = {}
     Iamswer::Session.new_from_json session_json_response(given_values)
+  end
+
+  def invitation_json_response given_values = {}
+    {
+      id: SecureRandom.alphanumeric,
+      type: "invitation",
+      status: "sent",
+      email: "a@a.com",
+      differ: "123",
+      createdAt: Time.current.to_datetime.to_s,
+      sentAt: Time.current.to_datetime.to_s,
+      seenAt: nil,
+      registeredAt: nil,
+      inviter: user_json_response
+    }.with_indifferent_access.merge(given_values.deep_symbolize_keys)
+  end
+
+  def mock_invitation given_values = {}
+    Iamswer::Invitation.new_from_json invitation_json_response(given_values)
   end
 end
