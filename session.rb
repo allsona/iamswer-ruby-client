@@ -25,7 +25,12 @@ class Iamswer::Session
       :loggedOutAt,
       :validUntil
 
-    session.user = Iamswer::User.typed_new_from_json body["user"]
+    # session's user can be nil if the session is no longer active
+    # so we should be careful not to simply parse the user data
+    if body["user"]
+      session.user = Iamswer::User.typed_new_from_json body["user"]
+    end
+
     session
   end
 
