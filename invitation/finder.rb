@@ -2,7 +2,7 @@ module Iamswer::Invitation::Finder
   extend ActiveSupport::Concern
 
   class_methods do
-    def find_by_id id
+    def find_by_id! id
       body = Iamswer::Client.get "/api/v1/invitations/find_by_id", id: id
       new_from_json body
     end
