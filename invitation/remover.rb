@@ -3,15 +3,14 @@ module Iamswer::Invitation::Remover
 
   class_methods do
     def remove_by_id! id
-      body = Iamswer::Client.delete "/api/v1/invitations/remove_by_id", id: id
-      new_from_json body
+      Iamswer::Client.delete "/api/v1/invitations/remove_by_id", id: id
+      true
     end
   end
 
   included do
     def remove!
       self.class.remove_by_id! id
-      true
     end
   end
 end
