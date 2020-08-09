@@ -1,14 +1,18 @@
 module Iamswer::Test::Mock
   def user_json_response given_values = {}
+    first_name = ["Adam", "Sam", "Herry", "Michael", "Feri", "Iwan"].sample
+    last_name = ["Santoso", "Noto", "Darmadji", "Wirawan", "Gunawan"].sample
+    name = "#{first_name} #{last_name}"
+
     {
       id: SecureRandom.alphanumeric,
       type: "user",
       email: "u#{rand(10_000)}@example.org",
       locale: "id-ID",
       appId: SecureRandom.alphanumeric,
-      firstName: "Adam",
-      lastName: "Baihaqi",
-      name: "Adam Baihaqi",
+      firstName: first_name,
+      lastName: last_name,
+      name: name,
       roles: [],
       username: "adambaihaqi#{rand(10_000)}",
       extraFields: {},
