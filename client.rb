@@ -40,7 +40,10 @@ class Iamswer::Client
 
   def self.calculate_callback_nonce(secret_key, payload)
     digest = OpenSSL::Digest.new("sha256")
-    hmac = OpenSSL::HMAC.digest(digest, secret_key, payload.to_json)
+    # TODO: PLEASE REMOVE
+    puts "Payload to hash: #{payload}"
+    puts "Secret key: #{secret_key}"
+    hmac = OpenSSL::HMAC.digest(digest, secret_key, payload.to_query)
     Base64.strict_encode64(hmac)
   end
 
