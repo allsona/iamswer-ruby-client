@@ -15,7 +15,7 @@ class Iamswer::Invitation
     # a user record
     :inviter,
     # a user record
-    :register
+    :user
 
   dated_field :registered_at
   dated_field :seen_at

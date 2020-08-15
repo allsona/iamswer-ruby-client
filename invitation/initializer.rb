@@ -20,8 +20,8 @@ module Iamswer::Invitation::Initializer
 
       invitation.inviter = Iamswer::User.typed_new_from_json body[:inviter]
 
-      if body[:register]
-        invitation.register = Iamswer::User.new_from_json body[:register]
+      if body[:user]
+        invitation.user = Iamswer::User.new_from_json body[:user]
       end
 
       invitation
