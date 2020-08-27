@@ -58,4 +58,17 @@ module Iamswer::Test::Mock
   def mock_invitation given_values = {}
     Iamswer::Invitation.new_from_json invitation_json_response(given_values)
   end
+
+  def province_json_response given_values = {}
+    {
+      id: SecureRandom.hex(3).upcase,
+      type: "substate",
+      countryCode: "ID",
+      name: "Province 1"
+    }.with_indifferent_access.merge(given_values.deep_symbolize_keys)
+  end
+
+  def mock_province given_values = {}
+    Iamswer::Province.new_from_json province_json_response(given_values)
+  end
 end
