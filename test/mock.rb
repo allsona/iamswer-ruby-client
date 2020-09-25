@@ -8,7 +8,7 @@ module Iamswer::Test::Mock
       id: SecureRandom.alphanumeric,
       type: "user",
       email: "u#{rand(10_000)}@example.org",
-      locale: "id-ID",
+      locale: "idID",
       appId: SecureRandom.alphanumeric,
       firstName: first_name,
       lastName: last_name,

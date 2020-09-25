@@ -1,6 +1,6 @@
 module Iamswer::Meta::Locales
   CODES = [
-    AMERICAN_ENGLISH = "en-US".freeze,
-    INDONESIAN = "id-ID".freeze,
+    AMERICAN_ENGLISH = "enUS".freeze,
+    INDONESIAN = "idID".freeze,
   ].freeze
 end
