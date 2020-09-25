@@ -1,5 +1,5 @@
 module Iamswer::User::Relationship::OwnedBy
-  def owned_by user_class, field_name: :user
+  def owned_by user_class, field_name: :user, optional: false
     unless user_class.is_a? Class
       raise Iamswer::Error::DslError, "#{user_class} is not a Class, but a #{user_class.class}. It must be a Class!"
     end
@@ -36,6 +36,8 @@ module Iamswer::User::Relationship::OwnedBy
       instance
     end
 
-    validates_presence_of id_field
+    unless optional
+      validates_presence_of id_field
+    end
   end
 end
