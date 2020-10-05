@@ -3,6 +3,10 @@ class Iamswer::CacheManager
 
   class << self
     delegate :enabled?,
+      :set,
+      :get,
+      :cache,
+
       to: :instance
   end
 
@@ -27,14 +31,37 @@ class Iamswer::CacheManager
     end
   end
 
-  def redis
-    return unless enabled?
+  # this function acts as a facade to the real function
+  # that get the value from the cache. currently, it only
+  # support redis backend.
+  def get given_key
+    key = "lib/iamswer:#{given_key}"
 
     connection_pool.with do |redis|
-      yield redis
+      redis.get key
     end
   end
 
+  # this function acts as a facade to the real function
+  # that set a value to the cache system. currently, it only
+  # support redis as the system backend.
+  def set given_key, string
+    key = "lib/iamswer:#{given_key}"
+
+    connection_pool.with do |redis|
+      result = redis.set key, string
+      result == "OK"
+    end
+  end
+
+  def cache! object
+    case object
+    when Iamswer::User
+      Iamswer::CacheManager::User.cache object
+    else
+      raise "Unable to cache a #{object.class} instance: #{object}"
+    end
+  end
   private
 
     def redis_url

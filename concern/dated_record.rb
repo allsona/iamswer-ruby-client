@@ -16,7 +16,8 @@ module Iamswer::Concern::DatedRecord
 
         define_method writer_method_name do |value|
           if value.present?
-            instance_variable_set field_instance_variable, DateTime.parse(value)
+            date_time_value = value.is_a?(DateTime) ? value : DateTime.parse(value)
+            instance_variable_set field_instance_variable, date_time_value
           end
         end
       end

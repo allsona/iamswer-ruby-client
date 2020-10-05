@@ -6,17 +6,35 @@ module Iamswer::User::Finder
 
   class_methods do
     def find_by_id! id
-      body = Iamswer::Client.get "/api/v1/users/find_by_id", id: id
+      body = Iamswer::CacheManager::User.find_by_id id
+
+      unless body
+        body = Iamswer::Client.get "/api/v1/users/find_by_id", id: id
+        record = Iamswer::CacheManager.cache(new_from_json(body))
+      end
+
       new_from_json body
     end
 
     def find_by_email! email
-      body = Iamswer::Client.get "/api/v1/users/find_by_email", email: email
+      body = Iamswer::CacheManager::User.find_by_email email
+
+      unless body
+        body = Iamswer::Client.get "/api/v1/users/find_by_email", email: email
+        record = Iamswer::CacheManager.cache(new_from_json(body))
+      end
+
       new_from_json body
     end
 
     def find_by_username! username
-      body = Iamswer::Client.get "/api/v1/users/find_by_username", username: username
+      body = Iamswer::CacheManager::User.find_by_username username
+
+      unless body
+        body = Iamswer::Client.get "/api/v1/users/find_by_username", username: username
+        record = Iamswer::CacheManager.cache(new_from_json(body))
+      end
+
       new_from_json body
     end
   end
