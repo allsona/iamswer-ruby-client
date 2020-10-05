@@ -1,6 +1,10 @@
 module Iamswer::CacheManager::User
   extend self
 
+  def reference_key user_id
+    "User##{user_id}"
+  end
+
   def key_on_id user_id
     "User#id=#{user_id}"
   end
@@ -13,6 +17,11 @@ module Iamswer::CacheManager::User
     "User#username=#{username}"
   end
 
+  # for space-efficiency, we want all related data to
+  # refer to the same reference key. so rather than storing
+  # each record and associating it one-by-one based on the
+  # is, email and username, we record them under the same
+  # reference. those finders then fetch by the reference
   def find_by_reference_key reference_key
     return unless Iamswer::CacheManager.enabled?
 
@@ -47,45 +56,21 @@ module Iamswer::CacheManager::User
 
     return unless Iamswer::CacheManager.enabled?
 
-    reference_key = "User##{user.id}"
-    Iamswer::CacheManager.set reference_key, serialize(user)
-    Iamswer::CacheManager.set key_on_id(user.id), reference_key
-    Iamswer::CacheManager.set key_on_email(user.email), reference_key
-    Iamswer::CacheManager.set key_on_username(user.username), reference_key
+    refkey = reference_key(user.id)
+    Iamswer::CacheManager.set refkey, serialize(user)
+    Iamswer::CacheManager.set key_on_id(user.id), refkey
+    Iamswer::CacheManager.set key_on_email(user.email), refkey
+    Iamswer::CacheManager.set key_on_username(user.username), refkey
 
     true
   end
 
   def serialize user
-    {
-      id: user.id, # string
-      email: user.email,
-      extra_fields: user.extra_fields,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      locale: user.locale,
-      name: user.name,
-      roles: user.roles,
-      created_at: user.created_at.to_s,
-      updated_at: user.updated_at.to_s,
-    }.to_json
+    user.attributes(json_compatible: true).to_json
   end
 
   def deserialize json_string
-    data = JSON.parse json_string, symbolize_names: true
-    attributes = {
-      id: data[:id],
-      email: data[:email],
-      extra_fields: data[:extra_fields].with_indifferent_access,
-      first_name: data[:first_name],
-      last_name: data[:last_name],
-      locale: data[:locale],
-      name: data[:name],
-      roles: data[:roles],
-      created_at: DateTime.parse(data[:created_at]),
-      updated_at: DateTime.parse(data[:updated_at])
-    }
-
-    attributes
+    data = JSON.parse(json_string).with_indifferent_access
+    Iamswer::User.new_from_json data
   end
 end

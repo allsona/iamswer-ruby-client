@@ -13,7 +13,6 @@ class Iamswer::Province
 
     error = body["error"]
     raise Iamswer::Error.from error if error
-    raise Iamswer::Error::TypeError, "Invalid type" if body["type"] != "substate"
 
     province = new body.slice :id,
       :countryCode,

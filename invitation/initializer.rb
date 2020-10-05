@@ -7,7 +7,6 @@ module Iamswer::Invitation::Initializer
 
       error = body["error"]
       raise Iamswer::Error.from error if error
-      raise Iamswer::Error::TypeError, "Invalid type" unless body["type"] == "invitation"
 
       invitation = new body.slice :id,
         :status,

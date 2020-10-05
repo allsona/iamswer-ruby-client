@@ -8,7 +8,6 @@ class Iamswer::Error < StandardError
   OperationError    = Class.new self
   OtherError        = Class.new self
   Unauthorized      = Class.new self
-  TypeError         = Class.new self
 
   def self.from_code(code)
     class_name = code.downcase.classify

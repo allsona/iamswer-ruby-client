@@ -7,7 +7,6 @@ module Iamswer::User::Initializer
 
       error = body["error"]
       raise Iamswer::Error.from error if error
-      raise Iamswer::Error::TypeError, "Invalid type" if body["type"] != "user"
 
       user = new body.slice :id,
         :email,

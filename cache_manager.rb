@@ -1,11 +1,14 @@
 class Iamswer::CacheManager
   include Singleton
 
+  KEY_PREFIX = "lib/iamswer:"
+
   class << self
     delegate :enabled?,
       :set,
       :get,
-      :cache,
+      :cache!,
+      :reset_cache,
 
       to: :instance
   end
@@ -35,7 +38,7 @@ class Iamswer::CacheManager
   # that get the value from the cache. currently, it only
   # support redis backend.
   def get given_key
-    key = "lib/iamswer:#{given_key}"
+    key = "#{KEY_PREFIX}#{given_key}"
 
     connection_pool.with do |redis|
       redis.get key
@@ -46,7 +49,7 @@ class Iamswer::CacheManager
   # that set a value to the cache system. currently, it only
   # support redis as the system backend.
   def set given_key, string
-    key = "lib/iamswer:#{given_key}"
+    key = "#{KEY_PREFIX}#{given_key}"
 
     connection_pool.with do |redis|
       result = redis.set key, string
@@ -55,13 +58,29 @@ class Iamswer::CacheManager
   end
 
   def cache! object
+    return unless enabled?
+
     case object
     when Iamswer::User
       Iamswer::CacheManager::User.cache object
+    when Iamswer::Session
+      Iamswer::CacheManager::Session.cache object
     else
-      raise "Unable to cache a #{object.class} instance: #{object}"
+      raise Iamswer::Error, "Unable to cache a #{object.class} instance: #{object}"
     end
   end
+
+  # remove everything in the cache
+  def reset_cache
+    return unless enabled?
+
+    connection_pool.with do |redis|
+      redis.keys("#{KEY_PREFIX}*").each do |key|
+        redis.del key
+      end
+    end
+  end
+
   private
 
     def redis_url

@@ -18,7 +18,6 @@ class Iamswer::Session
 
     error = body["error"]
     raise Iamswer::Error.from error if error
-    raise Iamswer::Error::TypeError, "Invalid type" if body["type"] != "session"
 
     session = new body.slice :id,
       :isInvalidated,
@@ -45,10 +44,28 @@ class Iamswer::Session
   end
 
   def valid_until=(value)
-    @valid_until = DateTime.parse(value)
+    @valid_until = value.is_a?(DateTime) ? value : DateTime.parse(value)
   end
 
   def logged_out?
     logged_out_at.present?
+  end
+
+  def attributes(json_compatible: false)
+    attributes = {
+      id: id,
+      is_invalidated: is_invalidated,
+      logged_out_at: logged_out_at&.to_s,
+      valid_until: valid_until.to_s,
+      user: user,
+    }
+
+    if json_compatible
+      attributes[:isInvalidated] = attributes.delete :is_invalidated
+      attributes[:loggedOutAt] = attributes.delete :logged_out_at
+      attributes[:validUntil] = attributes.delete :valid_until
+    end
+
+    attributes
   end
 end

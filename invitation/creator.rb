@@ -13,7 +13,7 @@ module Iamswer::Invitation::Creator
     # especially for creating the data
     def fields
       if !inviter.is_a?(Iamswer::User::Prototype) && !inviter.is_a?(Iamswer::User)
-        raise "Inviter must be a User"
+        raise Iamswer::Error, "Inviter must be a User"
       end
 
       {
@@ -24,7 +24,7 @@ module Iamswer::Invitation::Creator
     end
 
     def save!
-      raise "Field is already persisted" if id
+      raise Iamswer::Error, "Field is already persisted" if id
 
       self.class.create! fields
     end

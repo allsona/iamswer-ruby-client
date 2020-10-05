@@ -13,7 +13,6 @@ class Iamswer::City
 
     error = body["error"]
     raise Iamswer::Error.from error if error
-    raise Iamswer::Error::TypeError, "Invalid type" if body["type"] != "city"
 
     city = new body.slice :id,
       :provinceId,
