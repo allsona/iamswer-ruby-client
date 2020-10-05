@@ -24,19 +24,32 @@ class Iamswer::Config
   # `Iamswer::User::Prototype`.
   attr_accessor :user_class
 
+  # if provided, the app stores and fetch user from the redis store
+  # instead of from Iamswer's backend
+  attr_accessor :redis_url
+
   class << self
     delegate :endpoint,
       :endpoint=,
+
       :api_endpoint,
       :api_endpoint=,
+
       :secret_key,
       :secret_key=,
+
       :session_key_base,
       :session_key_base=,
+
       :subdomain,
       :subdomain=,
+
       :user_class,
       :user_class=,
+
+      :redis_url,
+      :redis_url=,
+
       to: :instance
   end
 

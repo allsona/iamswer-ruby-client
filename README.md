@@ -56,6 +56,14 @@ The client for Iamswer -- A user microservice
 5. Install dependencies:
    - Faraday
 
+6. Add the following into the Gemfile:
+
+   ```ruby
+   gem "connection_pool"
+   gem "hiredis", "~> 0.6"
+   gem "redis", ">= 3.2.0", require: ["redis", "redis/connection/hiredis"]
+   ```
+
 ## Simple guide
 
 <details>
