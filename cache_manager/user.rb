@@ -60,7 +60,10 @@ module Iamswer::CacheManager::User
     Iamswer::CacheManager.set refkey, serialize(user)
     Iamswer::CacheManager.set key_on_id(user.id), refkey
     Iamswer::CacheManager.set key_on_email(user.email), refkey
-    Iamswer::CacheManager.set key_on_username(user.username), refkey
+
+    if user.username.present?
+      Iamswer::CacheManager.set key_on_username(user.username), refkey
+    end
 
     true
   end
