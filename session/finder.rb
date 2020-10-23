@@ -7,7 +7,11 @@ module Iamswer::Session::Finder
       return session if session
 
       body = Iamswer::Client.get "/api/v1/sessions/find_by_id", id: id
-      Iamswer::CacheManager.cache!(new_from_json(body))
+
+      if body && body["user"].present?
+        Iamswer::CacheManager.cache!(new_from_json(body))
+      end
+
       new_from_json body
     end
   end
