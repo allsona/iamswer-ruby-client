@@ -64,6 +64,9 @@ class Iamswer::Client
           headers: {
             "Content-Type" => "application/json",
             "User-Agent" => "Iamswer Client 1.0",
+          },
+          request: {
+            timeout: 5
           }
         )
       end
