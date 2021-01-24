@@ -28,6 +28,7 @@ module Iamswer::SessionHandler
       session_id = cookies[session_cookie_name]
     end
 
+    return unless session_id
     session_id = session_verifier.verify session_id
     Iamswer::Session.find_by_id! session_id
   rescue ActiveSupport::MessageVerifier::InvalidSignature
