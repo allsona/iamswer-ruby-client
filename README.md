@@ -23,17 +23,25 @@ The client for Iamswer -- A user microservice
 
 3. Creates a user class that includes `Iamswer::User::Prototype`. Actually, this is an optional step, but is considered a good practice, so that you can customize the `User` class anyway you want.
 
-  ```rb
-  class User
-    include Iamswer::User::Prototype
+   ```rb
+   class User
+     include Iamswer::User::Prototype
 
-    # you can use iamswer_fields to define fields you want to use
-    # you can use iamswer_extra_fields to define extra fields
-    # by default, created_at, updated_at, and locale is included
-  end
-  ```
+     # you can use iamswer_fields to define fields you want to use
+     # you can use iamswer_extra_fields to define extra fields
+     # by default, created_at, updated_at, and locale is included
+   end
+   ```
+   
+4. Include `Iamswer::SessionHandler` into the `ApplicationController` (provides a way to call `current_user`):
 
-4. Write the config, typically something like:
+   ```rb
+   class ApplicationController < ActionController::Base
+     include Iamswer::SessionHandler
+   end
+   ```
+
+5. Write the config, typically something like:
 
    ```rb
    Iamswer::Config.configure do |c|
@@ -53,12 +61,10 @@ The client for Iamswer -- A user microservice
    end
    ```
 
-5. Install dependencies:
-   - Faraday
-
-6. Add the following into the Gemfile:
+6. Install dependencies by adding them into `Gemfile`:
 
    ```ruby
+   gem "faraday"
    gem "connection_pool"
    gem "hiredis", "~> 0.6"
    gem "redis", ">= 3.2.0", require: ["redis", "redis/connection/hiredis"]
