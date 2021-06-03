@@ -13,12 +13,16 @@ module Iamswer::User::Relationship::HasMany
   # class User
   #   has_many :organizations, field_name: :user_id
   # end
-  def has_many association_label, field_name: :user_id
+  def has_many association_label, field_name: :user_id, class_name: ""
     define_method association_label do
-      record_cls = association_label.to_s
-        .singularize
-        .camelize
-        .constantize
+      record_cls = class_name
+
+      if record_cls.blank?
+        record_cls = association_label.to_s
+          .singularize
+          .camelize
+          .constantize
+      end
 
       record_cls.where field_name => id
     end
