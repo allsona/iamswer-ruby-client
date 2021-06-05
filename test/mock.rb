@@ -45,7 +45,7 @@ module Iamswer::Test::Mock
       id: SecureRandom.alphanumeric,
       type: "invitation",
       status: "sent",
-      email: "a@a.com",
+      email: SecureRandom.alphanumeric + "@example.org",
       differ: "123",
       createdAt: Time.current.to_datetime.to_s,
       sentAt: Time.current.to_datetime.to_s,
