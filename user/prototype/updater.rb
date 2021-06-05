@@ -4,7 +4,9 @@ module Iamswer::User::Prototype::Updater
   included do
     def update!
       body = Iamswer::Client.post "/api/v1/users/update", fields
-      self.iamswer_user = Iamswer::User.new_from_json body
+      iamswer_user = Iamswer::User.new_from_json body
+      Iamswer::CacheManager.cache!(iamswer_user)
+      self.iamswer_user = iamswer_user
     end
 
     def save!
